@@ -23,6 +23,7 @@ INCLUDEPATH += \
     ../mxsrclib/arch/qt
 
 SOURCES += \
+    ../mxsrclib/imp_filt.cpp \
     ftdi_dll.cpp \
     gpio_ftdi_control.cpp \
     LibMPSSE/ftdi_common.c \
@@ -53,9 +54,11 @@ SOURCES += \
     ../mxsrclib/mxnetr.cpp \
     ../mxsrclib/niusbgpib.cpp \
     ../mxsrclib/niusbgpib_hardflow.cpp \
-    ../mxsrclib/timer.cpp
+    ../mxsrclib/timer.cpp \
+    impulse_filter_dll.cpp
 
 HEADERS += \
+    ../mxsrclib/imp_filt.h \
     mxsrclib_dll_global.h \
     gpio_ftdi_control.h \
     CDMv2.12.28/ftd2xx.h \
