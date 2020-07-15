@@ -1,4 +1,4 @@
-CONFIG -= qt
+QT       -= core gui qt
 
 TEMPLATE = lib
 DEFINES += MXSRCLIB_DLL_LIBRARY
@@ -18,7 +18,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 INCLUDEPATH += \
     $$PWD\LibMPSSE \
-    $$PWD\LibMPSSE\Include
+    $$PWD\LibMPSSE\Include \
+    ../mxsrclib \
+    ../mxsrclib/arch/qt
 
 SOURCES += \
     ftdi_dll.cpp \
@@ -27,7 +29,31 @@ SOURCES += \
     LibMPSSE/ftdi_i2c.c \
     LibMPSSE/ftdi_infra.c \
     LibMPSSE/ftdi_mid.c \
-    LibMPSSE/ftdi_spi.c
+    LibMPSSE/ftdi_spi.c \
+    ../mxsrclib/arch/qt/counter.cpp \
+    ../mxsrclib/arch/qt/mxifa.cpp \
+    ../mxsrclib/hardflowg.cpp \
+    ../mxsrclib/irsalg.cpp \
+    ../mxsrclib/irscpu.cpp \
+    ../mxsrclib/irsdevices.cpp \
+    ../mxsrclib/irserror.cpp \
+    ../mxsrclib/irsexcept.cpp \
+    ../mxsrclib/irsfilter.cpp \
+    ../mxsrclib/irsint.cpp \
+    ../mxsrclib/irslocale.cpp \
+    ../mxsrclib/irsmbus.cpp \
+    ../mxsrclib/irsstring.cpp \
+    ../mxsrclib/irssysutils.cpp \
+    ../mxsrclib/irstcpip.cpp \
+    ../mxsrclib/irstime.cpp \
+    ../mxsrclib/measmul.cpp \
+    ../mxsrclib/mxdata.cpp \
+    ../mxsrclib/mxnet.cpp \
+    ../mxsrclib/mxnetc.cpp \
+    ../mxsrclib/mxnetr.cpp \
+    ../mxsrclib/niusbgpib.cpp \
+    ../mxsrclib/niusbgpib_hardflow.cpp \
+    ../mxsrclib/timer.cpp
 
 HEADERS += \
     mxsrclib_dll_global.h \
@@ -39,7 +65,65 @@ HEADERS += \
     LibMPSSE/ftdi_i2c.h \
     LibMPSSE/ftdi_infra.h \
     LibMPSSE/ftdi_mid.h \
-    LibMPSSE/ftdi_spi.h
+    LibMPSSE/ftdi_spi.h \
+    ../mxsrclib/arch/qt/counter.h \
+    ../mxsrclib/hardflowg.h \
+    ../mxsrclib/irsalg.h \
+    ../mxsrclib/irscpu.h \
+    ../mxsrclib/irsdevices.h \
+    ../mxsrclib/irserror.h \
+    ../mxsrclib/irsexcept.h \
+    ../mxsrclib/irsfilter.h \
+    ../mxsrclib/irsfinal.h \
+    ../mxsrclib/irsint.h \
+    ../mxsrclib/irslocale.h \
+    ../mxsrclib/irsmbus.h \
+    ../mxsrclib/irsstring.h \
+    ../mxsrclib/irsstrmstd.h \
+    ../mxsrclib/irssysutils.h \
+    ../mxsrclib/irstcpip.h \
+    ../mxsrclib/irstime.h \
+    ../mxsrclib/measmul.h \
+    ../mxsrclib/mxdata.h \
+    ../mxsrclib/mxnet.h \
+    ../mxsrclib/mxnetc.h \
+    ../mxsrclib/mxnetr.h \
+    ../mxsrclib/niusbgpib.h \
+    ../mxsrclib/niusbgpib_hardflow.h \
+    ../mxsrclib/timer.h \
+    revisions.h
+
+win32-msvc*: DEFINES += "_HAS_AUTO_PTR_ETC=1"
+
+win32 {
+  LIBS += \
+          -lws2_32 \
+          -lSetupapi \
+}
+
+win32-g++ {
+  QMAKE_CXXFLAGS += -finput-charset=CP1251
+  QMAKE_CXXFLAGS += -fno-strict-aliasing
+  QMAKE_CXXFLAGS += -Wno-deprecated
+  QMAKE_CXXFLAGS += -Wextra
+  QMAKE_CXXFLAGS += -Woverloaded-virtual
+  QMAKE_CXXFLAGS += -Wno-unused-parameter
+  QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
+  QMAKE_CXXFLAGS += -Wno-misleading-indentation
+  QMAKE_CXXFLAGS += -Wno-unused-variable
+}
+
+
+win32-msvc* {
+  QMAKE_CXXFLAGS -= -Zc:wchar_t-
+  QMAKE_CXXFLAGS -= -w34100
+  QMAKE_CXXFLAGS += -wd4800
+  QMAKE_CXXFLAGS += -w44355
+  QMAKE_CXXFLAGS += -wd4996
+  QMAKE_CXXFLAGS += -wd4250
+  QMAKE_CFLAGS_RELEASE = -Zi -MDd
+  QMAKE_CXXFLAGS += -MP8
+}
 
 # Default rules for deployment.
 unix {
