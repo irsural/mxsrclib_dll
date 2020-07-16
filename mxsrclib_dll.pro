@@ -55,7 +55,8 @@ SOURCES += \
     ../mxsrclib/niusbgpib.cpp \
     ../mxsrclib/niusbgpib_hardflow.cpp \
     ../mxsrclib/timer.cpp \
-    impulse_filter_dll.cpp
+    impulse_filter_dll.cpp \
+    irsalg_dll.cpp
 
 HEADERS += \
     ../mxsrclib/imp_filt.h \
