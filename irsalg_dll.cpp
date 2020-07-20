@@ -1,6 +1,12 @@
 #include "mxsrclib_dll_global.h"
+#include "revisions.h"
 #include "irsalg.h"
 #include <limits>
+
+
+MXSRCLIB_DLLEXPORT int revision() {
+  return static_cast<int>(revisions::mscrclib_dll);
+}
 
 
 MXSRCLIB_DLLEXPORT double student_t_inverse_distribution_2x(double a_confidence_level, uint32_t a_degrees_of_freedom) {
