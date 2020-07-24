@@ -24,6 +24,7 @@ INCLUDEPATH += \
 
 SOURCES += \
     ../mxsrclib/imp_filt.cpp \
+    ../mxsrclib/irsfunnel.cpp \
     ftdi_dll.cpp \
     gpio_ftdi_control.cpp \
     LibMPSSE/ftdi_common.c \
@@ -56,10 +57,12 @@ SOURCES += \
     ../mxsrclib/niusbgpib_hardflow.cpp \
     ../mxsrclib/timer.cpp \
     impulse_filter_dll.cpp \
-    irsalg_dll.cpp
+    irsalg_dll.cpp \
+    irsfunnel_dll.cpp
 
 HEADERS += \
     ../mxsrclib/imp_filt.h \
+    ../mxsrclib/irsfunnel.h \
     mxsrclib_dll_global.h \
     gpio_ftdi_control.h \
     CDMv2.12.28/ftd2xx.h \

@@ -2,7 +2,6 @@
 #include "imp_filt.h"
 
 static irs::filt_imp_noise_t impulse_filter;
-static vector<irs::filt_imp_noise_t::value_type> filter_data;
 
 
 
