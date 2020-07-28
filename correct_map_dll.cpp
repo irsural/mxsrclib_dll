@@ -60,6 +60,7 @@ MXSRCLIB_DLLEXPORT void correct_map_set_y_points_count(uint32_t a_handle, uint32
 {
   correct_map_t *cm = correct_map_handles[a_handle];
   if (cm) {
+//    cm->map_id = 1;
     cm->y_count = a_points_count;
   }
 }
