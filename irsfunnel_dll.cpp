@@ -5,10 +5,12 @@
 irs::handle_t<irs::funnel_client_t> p_funnel_client;
 
 
-MXSRCLIB_DLLEXPORT void funnel_client_create(irs::mxdata_t *a_mxdata, uint32_t a_funnel_start_index,
+MXSRCLIB_DLLEXPORT void funnel_client_create(size_t a_mxdata_addr, uint32_t a_funnel_start_index,
                                              uint32_t a_offset, uint32_t a_size)
 {
-  p_funnel_client.reset(new irs::funnel_client_t(a_mxdata, a_funnel_start_index, MS_TO_CNT(200),
+  p_funnel_client.reset(nullptr);
+  irs::mxdata_t *mxdata = reinterpret_cast<irs::mxdata_t*>(a_mxdata_addr);
+  p_funnel_client.reset(new irs::funnel_client_t(mxdata, a_funnel_start_index, MS_TO_CNT(200),
                         a_offset, a_size, irs::fcm_reduce));
 }
 

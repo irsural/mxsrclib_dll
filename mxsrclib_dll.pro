@@ -3,7 +3,7 @@ QT       -= core gui qt
 TEMPLATE = lib
 DEFINES += MXSRCLIB_DLL_LIBRARY
 
-CONFIG += c++11
+CONFIG += c++1z
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -25,6 +25,8 @@ INCLUDEPATH += \
 SOURCES += \
     ../mxsrclib/imp_filt.cpp \
     ../mxsrclib/irsfunnel.cpp \
+    correct_map.cpp \
+    correct_map_dll.cpp \
     ftdi_dll.cpp \
     gpio_ftdi_control.cpp \
     LibMPSSE/ftdi_common.c \
@@ -63,6 +65,7 @@ SOURCES += \
 HEADERS += \
     ../mxsrclib/imp_filt.h \
     ../mxsrclib/irsfunnel.h \
+    correct_map.h \
     mxsrclib_dll_global.h \
     gpio_ftdi_control.h \
     CDMv2.12.28/ftd2xx.h \
