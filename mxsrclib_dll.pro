@@ -25,6 +25,7 @@ INCLUDEPATH += \
 SOURCES += \
     ../mxsrclib/imp_filt.cpp \
     ../mxsrclib/irsfunnel.cpp \
+    agilent_3458a_mxmultimeter.cpp \
     correct_map.cpp \
     correct_map_dll.cpp \
     ftdi_dll.cpp \
@@ -60,12 +61,16 @@ SOURCES += \
     ../mxsrclib/timer.cpp \
     impulse_filter_dll.cpp \
     irsalg_dll.cpp \
-    irsfunnel_dll.cpp
+    irsfunnel_dll.cpp \
+    multimeter_measure.cpp \
+    mxmultimeter_dll.cpp
 
 HEADERS += \
     ../mxsrclib/imp_filt.h \
     ../mxsrclib/irsfunnel.h \
+    agilent_3458a_mxmultimeter.h \
     correct_map.h \
+    multimeter_measure.h \
     mxsrclib_dll_global.h \
     gpio_ftdi_control.h \
     CDMv2.12.28/ftd2xx.h \
