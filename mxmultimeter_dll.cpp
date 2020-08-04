@@ -43,18 +43,29 @@ MXSRCLIB_DLLEXPORT void disconnect_multimeter()
   m_meas_value.disconnect_multimeter();
 }
 
-MXSRCLIB_DLLEXPORT int multimeter_get_measured_value(size_t a_meas_type, double *a_value)
+MXSRCLIB_DLLEXPORT void multimeter_tick()
 {
-  int success = 0;
   if (m_meas_value.is_multimeter_connected()) {
     m_meas_value.tick();
+  }
+}
 
-    meas_status_t meas_stat = m_meas_value.get_status_meas();
-    if (meas_stat == meas_status_success){
-      if (a_meas_type >= tm_first && a_meas_type <= tm_last) {
-        m_meas_value.execute_meas(static_cast<type_meas_t>(a_meas_type), a_value);
-        success = 1;
-      }
+MXSRCLIB_DLLEXPORT int multimeter_get_status()
+{
+  meas_status_t status = meas_status_t::meas_status_error;
+  if (m_meas_value.is_multimeter_connected()) {
+    status = m_meas_value.get_status_meas();
+  }
+  return static_cast<int>(status);
+}
+
+MXSRCLIB_DLLEXPORT int multimeter_start_measure(size_t a_meas_type, double *a_value)
+{
+  int success = 0;
+  if (a_meas_type >= tm_first && a_meas_type <= tm_last) {
+    if (m_meas_value.get_status_meas() == meas_status_success){
+      m_meas_value.execute_meas(static_cast<type_meas_t>(a_meas_type), a_value);
+      success = 1;
     }
   }
   return success;

@@ -2,7 +2,7 @@
 #define REVISIONS_H
 
 enum class revisions {
-  mscrclib_dll = 9,
+  mscrclib_dll = 10,
   mxsrclib = 1398,
   extern_libs = 38
 };
