@@ -28,6 +28,7 @@ SOURCES += \
     agilent_3458a_mxmultimeter.cpp \
     correct_map.cpp \
     correct_map_dll.cpp \
+    filters.cpp \
     ftdi_dll.cpp \
     gpio_ftdi_control.cpp \
     LibMPSSE/ftdi_common.c \
@@ -70,6 +71,7 @@ HEADERS += \
     ../mxsrclib/irsfunnel.h \
     agilent_3458a_mxmultimeter.h \
     correct_map.h \
+    filters.h \
     multimeter_measure.h \
     mxsrclib_dll_global.h \
     gpio_ftdi_control.h \

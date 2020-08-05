@@ -1,7 +1,12 @@
 #include "mxsrclib_dll_global.h"
 #include "revisions.h"
 #include "irsalg.h"
+#include "filters.h"
+
 #include <limits>
+
+
+param_filter_t param_filter;
 
 
 MXSRCLIB_DLLEXPORT int revision() {
@@ -23,3 +28,44 @@ MXSRCLIB_DLLEXPORT double student_t_inverse_distribution_2x(double a_confidence_
   return irs::student_t_inverse_distribution_2x(confidence_level, a_degrees_of_freedom);
 }
 
+
+MXSRCLIB_DLLEXPORT void param_filter_tick()
+{
+  param_filter.tick();
+}
+
+
+MXSRCLIB_DLLEXPORT void param_filter_add(double a_value)
+{
+  param_filter.add(a_value);
+}
+
+
+MXSRCLIB_DLLEXPORT double param_filter_get_value()
+{
+  return param_filter.get_value();
+}
+
+
+MXSRCLIB_DLLEXPORT void param_filter_restart()
+{
+  param_filter.restart();
+}
+
+
+MXSRCLIB_DLLEXPORT void param_filter_set_sampling_time(double a_sampling_time)
+{
+  param_filter.set_sampling_time(a_sampling_time);
+}
+
+
+MXSRCLIB_DLLEXPORT void param_filter_resize(size_t a_new_size)
+{
+  param_filter.resize(a_new_size);
+}
+
+
+MXSRCLIB_DLLEXPORT void param_filter_stop()
+{
+  param_filter.stop();
+}
