@@ -48,6 +48,7 @@ public:
   bool write_gpio(channel_t a_channel, bus_t a_bus, uint8_t a_pin, bool a_state);
   bool read_gpio(channel_t a_channel, bus_t a_bus, uint8_t a_pin);
   FT_STATUS read_byte(channel_t a_channel, bus_t a_bus, uint8_t *a_byte);
+  FT_STATUS write_byte(channel_t a_channel, bus_t a_bus, uint8_t a_byte);
   void set_out_pins(channel_t a_channel, bus_t a_bus, uint8_t a_pins_direction);
 private:
   enum cmd_t {

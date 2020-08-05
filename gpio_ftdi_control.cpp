@@ -112,6 +112,14 @@ FT_STATUS gpio_ftdi_control_t::read_byte(channel_t a_channel, bus_t a_bus, uint8
   return FT_ReadGPIO(channel_handle, a_byte, cmd_read);
 }
 
+FT_STATUS gpio_ftdi_control_t::write_byte(channel_t a_channel, bus_t a_bus, uint8_t a_byte)
+{
+  auto channel_handle = a_channel == channel_t::A ? m_A_channel_handle : m_B_channel_handle;
+  cmd_set_gpio_line_t cmd_read = a_bus == bus_t::C ? cmd_set_gpio_line_t::set_highbyte : cmd_set_gpio_line_t::set_lowbite;
+
+  return FT_WriteGPIO(channel_handle, get_out_pins(a_channel, a_bus), a_byte, cmd_read);
+}
+
 void gpio_ftdi_control_t::set_out_pins(channel_t a_channel, bus_t a_bus, uint8_t a_pins_direction)
 {
   //a_pins_direction - каждый бит отвечает за направление соответствующего пина, 1 = out, 0 = in
