@@ -65,7 +65,7 @@ private:
   std::map<std::tuple<channel_t, bus_t>, uint8_t> m_pin_config;
 
   void fill_channels_info();
-  void open_channel(channel_t a_channel);
+  void open_channel(channel_t a_channel, uint32_t a_channel_idx);
   uint8_t get_out_pins(channel_t a_channel, bus_t a_bus);
 };
 

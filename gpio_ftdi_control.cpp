@@ -31,23 +31,24 @@ void gpio_ftdi_control_t::fill_channels_info()
     m_error = error_t::cant_get_num_channels;
   }
 
-  for (auto &dev: m_dev_list) {
+  for (size_t channel_idx = 0; channel_idx < m_dev_list.size(); ++channel_idx) {
+    auto &dev = m_dev_list[channel_idx];
+
     if (strcmp(dev.SerialNumber, "A") == 0) {
-      open_channel(channel_t::A);
+      open_channel(channel_t::A, channel_idx);
     } else if (strcmp(dev.SerialNumber, "B") == 0) {
-      open_channel(channel_t::B);
+      open_channel(channel_t::B, channel_idx);
     } else {
       assert(false);
     }
   }
 }
 
-void gpio_ftdi_control_t::open_channel(channel_t a_channel)
+void gpio_ftdi_control_t::open_channel(channel_t a_channel, uint32_t a_channel_idx)
 {
   auto &m_channel_handle = a_channel == channel_t::A ? m_A_channel_handle : m_B_channel_handle;
-  uint32_t channel_index = a_channel == channel_t::A ? 0 : 1;
 
-  FT_STATUS status = SPI_OpenChannel(channel_index, &m_channel_handle);
+  FT_STATUS status = SPI_OpenChannel(a_channel_idx, &m_channel_handle);
 
   if (status == FT_OK) {
 
