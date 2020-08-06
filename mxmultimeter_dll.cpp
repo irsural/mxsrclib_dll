@@ -71,7 +71,9 @@ MXSRCLIB_DLLEXPORT int multimeter_start_measure(size_t a_meas_type, double *a_va
   return success;
 }
 
-MXSRCLIB_DLLEXPORT const wchar_t* multimeter_set_range(const wchar_t* a_name)
+MXSRCLIB_DLLEXPORT void multimeter_set_range(size_t a_meas_type, double a_range)
 {
-  return a_name;
+  if (m_meas_value.is_multimeter_connected()) {
+    m_meas_value.set_range(static_cast<type_meas_t>(a_meas_type), a_range);
+  }
 }
