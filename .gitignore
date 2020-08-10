@@ -2,6 +2,12 @@
 *.user
 *.bat
 
+build/*
+!build/release
+build/release/*
+!build/release/mxsrclib_dll.dll
+
+
 # irs global ignore
 *.*~
 *.SchDocPreview
