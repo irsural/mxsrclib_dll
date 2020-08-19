@@ -60,6 +60,7 @@ SOURCES += \
     ../mxsrclib/niusbgpib.cpp \
     ../mxsrclib/niusbgpib_hardflow.cpp \
     ../mxsrclib/timer.cpp \
+    hermite_interpolation_dll.cpp \
     impulse_filter_dll.cpp \
     irsalg_dll.cpp \
     irsfunnel_dll.cpp \
@@ -72,6 +73,8 @@ HEADERS += \
     agilent_3458a_mxmultimeter.h \
     correct_map.h \
     filters.h \
+    hermit.h \
+    multi_instance.h \
     multimeter_measure.h \
     mxsrclib_dll_global.h \
     gpio_ftdi_control.h \
