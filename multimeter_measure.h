@@ -52,6 +52,8 @@ private:
   //meas_status_t cur_status;
   double* mp_value;
 
+  std::vector<irs::string> m_config_commands;
+
 public:
   value_meas_t();
   ~value_meas_t();
@@ -61,6 +63,7 @@ public:
   inline void execute_meas(const type_meas_t a_type_meas, double* ap_value);
   inline void abort_meas();
   inline void set_range(const type_meas_t a_type_meas, const double a_range);
+  void set_extra_commands(const vector<irs::string> a_commands);
   inline meas_status_t get_status_meas();
   //inline double get_value();
   /*установка времени задержки между отправкой значени¤ ¤чейки и измерением
@@ -112,8 +115,11 @@ inline void value_meas_t::set_range(
   if (m_on_connect_multimetr && (m_type_meas != tm_value))
     m_multimeter->set_range(a_type_meas, a_range);
 }
+
 inline meas_status_t value_meas_t::get_status_meas()
-  {return m_meas_status;}
+{
+  return m_meas_status;
+}
 
 
 #endif // MXMULTIMETER_H

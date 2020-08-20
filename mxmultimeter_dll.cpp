@@ -6,7 +6,6 @@
 
 
 irs::handle_t<irs::mxmultimeter_assembly_t> mp_mxmultimeter_assembly;
-irs::handle_t<mxmultimeter_t> mp_multimeter;
 value_meas_t m_meas_value;
 
 
@@ -76,4 +75,28 @@ MXSRCLIB_DLLEXPORT void multimeter_set_range(size_t a_meas_type, double a_range)
   if (m_meas_value.is_multimeter_connected()) {
     m_meas_value.set_range(static_cast<type_meas_t>(a_meas_type), a_range);
   }
+}
+
+template<char delimiter>
+class string_delimited_by : public irs::string
+{};
+
+template<char delimiter>
+std::istream& operator>>(std::istream& is, string_delimited_by<delimiter>& output)
+{
+  std::getline(is, output, delimiter);
+  return is;
+}
+
+MXSRCLIB_DLLEXPORT const char* multimeter_set_config(const char* a_config_string)
+{
+  if (m_meas_value.is_multimeter_connected()) {
+    istringstream input_stream(a_config_string);
+    std::vector<irs::string> commands(
+      (std::istream_iterator<string_delimited_by<';'>>(input_stream)),
+      std::istream_iterator<string_delimited_by<';'>>());
+
+    m_meas_value.set_extra_commands(std::move(commands));
+  }
+  return a_config_string;
 }

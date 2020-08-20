@@ -92,7 +92,8 @@ value_meas_t::value_meas_t():
   m_test_to(0),
   m_hardflow(NULL),
   m_multimeter(NULL),
-  mp_value(NULL)
+  mp_value(NULL),
+  m_config_commands()
 {
   init_to_cnt();
 }
@@ -103,7 +104,9 @@ value_meas_t::~value_meas_t()
   deinit_to_cnt();
 }
 void value_meas_t::set_time_wait_meas(int a_time)
-{m_num = a_time;}
+{
+  m_num = a_time;
+}
 
 void value_meas_t::process_meas()
 {
@@ -179,6 +182,17 @@ void value_meas_t::process_meas()
     } break;
   }
 }
+
+void value_meas_t::set_extra_commands(const vector<irs::string> a_commands)
+{
+  if (m_on_connect_multimetr && (m_type_meas != tm_value)) {
+    auto agilent = dynamic_cast<irs::agilent_3458a_t*>(m_multimeter);
+    if (agilent) {
+      agilent->set_string_commands(a_commands);
+    }
+  }
+}
+
 void value_meas_t::tick()
 {
   if(m_on_connect_multimetr) {
