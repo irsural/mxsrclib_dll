@@ -250,14 +250,14 @@ FT_STATUS Infra_Delay(uint64 delay)
 FTDI_API void Init_libMPSSE(void)
 {
 	//FT_STATUS status;
-	FN_ENTER;
+  FN_ENTER;
 
 /* Load D2XX dynamic library */
 #ifdef __linux
 	hdll_d2xx = dlopen("libftd2xx.so",RTLD_LAZY);
 	CHECK_NULL(hdll_d2xx);
 #else
-	hdll_d2xx = LoadLibraryA("ftd2xx.dll");
+  hdll_d2xx = LoadLibraryA("ftd2xx.dll");
 	CHECK_NULL(hdll_d2xx);
 #endif
 
@@ -387,7 +387,7 @@ BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD reason_for_call,LPVOID lpReserved
   	{
 		case DLL_PROCESS_ATTACH:
 			DBG(MSG_DEBUG,"reason_for_call = DLL_PROCESS_ATTACH\n");
-			Init_libMPSSE();
+      //Init_libMPSSE();
 		break;
 		case DLL_THREAD_ATTACH:
 			DBG(MSG_DEBUG,"reason_for_call = DLL_THREAD_ATTACH\n");
@@ -400,7 +400,7 @@ BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD reason_for_call,LPVOID lpReserved
 		break;
 		case DLL_PROCESS_DETACH:
 			DBG(MSG_DEBUG,"reason_for_call = DLL_PROCESS_DETACH\n");
-			Cleanup_libMPSSE();
+      //Cleanup_libMPSSE();
 		break;
 
 		default:
@@ -434,7 +434,7 @@ void my_init(void)
 {
 	//FT_STATUS status=FT_OK;
 	FN_ENTER;
-	Init_libMPSSE();
+//	Init_libMPSSE();
 	FN_EXIT;
 }
 
@@ -458,7 +458,7 @@ void my_exit(void)
 {
 	//FT_STATUS status=FT_OK;
 	FN_ENTER;
-	Cleanup_libMPSSE();
+//	Cleanup_libMPSSE();
 	FN_EXIT;
 }
 
