@@ -188,7 +188,7 @@ void value_meas_t::set_extra_commands(const vector<irs::string> a_commands)
   if (m_on_connect_multimetr && (m_type_meas != tm_value)) {
     auto agilent = dynamic_cast<irs::agilent_3458a_t*>(m_multimeter);
     if (agilent) {
-      agilent->set_string_commands(a_commands);
+//      agilent->set_string_commands(a_commands);
     }
   }
 }
