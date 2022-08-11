@@ -131,6 +131,8 @@ win32-g++ {
   QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
   QMAKE_CXXFLAGS += -Wno-misleading-indentation
   QMAKE_CXXFLAGS += -Wno-unused-variable
+
+  LIBS += -static
 }
 
 
