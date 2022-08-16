@@ -19,12 +19,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += \
     $$PWD\LibMPSSE \
     $$PWD\LibMPSSE\Include \
-    ../mxsrclib \
-    ../mxsrclib/arch/qt
+    ../../mxsrclib \
+    ../../mxsrclib/arch/qt
 
 SOURCES += \
-    ../mxsrclib/imp_filt.cpp \
-    ../mxsrclib/irsfunnel.cpp \
+    ../../mxsrclib/imp_filt.cpp \
+    ../../mxsrclib/irsfunnel.cpp \
     agilent_3458a_mxmultimeter.cpp \
     correct_map.cpp \
     correct_map_dll.cpp \
@@ -36,30 +36,30 @@ SOURCES += \
     LibMPSSE/ftdi_infra.c \
     LibMPSSE/ftdi_mid.c \
     LibMPSSE/ftdi_spi.c \
-    ../mxsrclib/arch/qt/counter.cpp \
-    ../mxsrclib/arch/qt/mxifa.cpp \
-    ../mxsrclib/hardflowg.cpp \
-    ../mxsrclib/irsalg.cpp \
-    ../mxsrclib/irscpu.cpp \
-    ../mxsrclib/irsdevices.cpp \
-    ../mxsrclib/irserror.cpp \
-    ../mxsrclib/irsexcept.cpp \
-    ../mxsrclib/irsfilter.cpp \
-    ../mxsrclib/irsint.cpp \
-    ../mxsrclib/irslocale.cpp \
-    ../mxsrclib/irsmbus.cpp \
-    ../mxsrclib/irsstring.cpp \
-    ../mxsrclib/irssysutils.cpp \
-    ../mxsrclib/irstcpip.cpp \
-    ../mxsrclib/irstime.cpp \
-    ../mxsrclib/measmul.cpp \
-    ../mxsrclib/mxdata.cpp \
-    ../mxsrclib/mxnet.cpp \
-    ../mxsrclib/mxnetc.cpp \
-    ../mxsrclib/mxnetr.cpp \
-    ../mxsrclib/niusbgpib.cpp \
-    ../mxsrclib/niusbgpib_hardflow.cpp \
-    ../mxsrclib/timer.cpp \
+    ../../mxsrclib/arch/qt/counter.cpp \
+    ../../mxsrclib/arch/qt/mxifa.cpp \
+    ../../mxsrclib/hardflowg.cpp \
+    ../../mxsrclib/irsalg.cpp \
+    ../../mxsrclib/irscpu.cpp \
+    ../../mxsrclib/irsdevices.cpp \
+    ../../mxsrclib/irserror.cpp \
+    ../../mxsrclib/irsexcept.cpp \
+    ../../mxsrclib/irsfilter.cpp \
+    ../../mxsrclib/irsint.cpp \
+    ../../mxsrclib/irslocale.cpp \
+    ../../mxsrclib/irsmbus.cpp \
+    ../../mxsrclib/irsstring.cpp \
+    ../../mxsrclib/irssysutils.cpp \
+    ../../mxsrclib/irstcpip.cpp \
+    ../../mxsrclib/irstime.cpp \
+    ../../mxsrclib/measmul.cpp \
+    ../../mxsrclib/mxdata.cpp \
+    ../../mxsrclib/mxnet.cpp \
+    ../../mxsrclib/mxnetc.cpp \
+    ../../mxsrclib/mxnetr.cpp \
+    ../../mxsrclib/niusbgpib.cpp \
+    ../../mxsrclib/niusbgpib_hardflow.cpp \
+    ../../mxsrclib/timer.cpp \
     hermite_interpolation_dll.cpp \
     impulse_filter_dll.cpp \
     irsalg_dll.cpp \
@@ -68,8 +68,8 @@ SOURCES += \
     mxmultimeter_dll.cpp
 
 HEADERS += \
-    ../mxsrclib/imp_filt.h \
-    ../mxsrclib/irsfunnel.h \
+    ../../mxsrclib/imp_filt.h \
+    ../../mxsrclib/irsfunnel.h \
     agilent_3458a_mxmultimeter.h \
     correct_map.h \
     filters.h \
@@ -86,31 +86,31 @@ HEADERS += \
     LibMPSSE/ftdi_infra.h \
     LibMPSSE/ftdi_mid.h \
     LibMPSSE/ftdi_spi.h \
-    ../mxsrclib/arch/qt/counter.h \
-    ../mxsrclib/hardflowg.h \
-    ../mxsrclib/irsalg.h \
-    ../mxsrclib/irscpu.h \
-    ../mxsrclib/irsdevices.h \
-    ../mxsrclib/irserror.h \
-    ../mxsrclib/irsexcept.h \
-    ../mxsrclib/irsfilter.h \
-    ../mxsrclib/irsfinal.h \
-    ../mxsrclib/irsint.h \
-    ../mxsrclib/irslocale.h \
-    ../mxsrclib/irsmbus.h \
-    ../mxsrclib/irsstring.h \
-    ../mxsrclib/irsstrmstd.h \
-    ../mxsrclib/irssysutils.h \
-    ../mxsrclib/irstcpip.h \
-    ../mxsrclib/irstime.h \
-    ../mxsrclib/measmul.h \
-    ../mxsrclib/mxdata.h \
-    ../mxsrclib/mxnet.h \
-    ../mxsrclib/mxnetc.h \
-    ../mxsrclib/mxnetr.h \
-    ../mxsrclib/niusbgpib.h \
-    ../mxsrclib/niusbgpib_hardflow.h \
-    ../mxsrclib/timer.h \
+    ../../mxsrclib/arch/qt/counter.h \
+    ../../mxsrclib/hardflowg.h \
+    ../../mxsrclib/irsalg.h \
+    ../../mxsrclib/irscpu.h \
+    ../../mxsrclib/irsdevices.h \
+    ../../mxsrclib/irserror.h \
+    ../../mxsrclib/irsexcept.h \
+    ../../mxsrclib/irsfilter.h \
+    ../../mxsrclib/irsfinal.h \
+    ../../mxsrclib/irsint.h \
+    ../../mxsrclib/irslocale.h \
+    ../../mxsrclib/irsmbus.h \
+    ../../mxsrclib/irsstring.h \
+    ../../mxsrclib/irsstrmstd.h \
+    ../../mxsrclib/irssysutils.h \
+    ../../mxsrclib/irstcpip.h \
+    ../../mxsrclib/irstime.h \
+    ../../mxsrclib/measmul.h \
+    ../../mxsrclib/mxdata.h \
+    ../../mxsrclib/mxnet.h \
+    ../../mxsrclib/mxnetc.h \
+    ../../mxsrclib/mxnetr.h \
+    ../../mxsrclib/niusbgpib.h \
+    ../../mxsrclib/niusbgpib_hardflow.h \
+    ../../mxsrclib/timer.h \
     revisions.h
 
 win32-msvc*: DEFINES += "_HAS_AUTO_PTR_ETC=1"
