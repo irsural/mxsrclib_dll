@@ -4,7 +4,7 @@
 
 using ftdi = gpio_ftdi_control_t;
 
-std::shared_ptr<gpio_ftdi_control_t> get_gpio_control() {
+std::shared_ptr<gpio_ftdi_control_t>& get_gpio_control() {
   static std::shared_ptr<gpio_ftdi_control_t> gpio_control;
   return gpio_control;
 }
