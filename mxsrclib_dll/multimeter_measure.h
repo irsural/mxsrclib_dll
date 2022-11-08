@@ -63,7 +63,8 @@ public:
   inline void execute_meas(const type_meas_t a_type_meas, double* ap_value);
   inline void abort_meas();
   inline void set_range(const type_meas_t a_type_meas, const double a_range);
-  void set_extra_commands(const vector<irs::string> a_commands);
+  void set_extra_commands(const vector<irs::string> a_commands,
+    double a_apply_delay_s);
   inline meas_status_t get_status_meas();
   //inline double get_value();
   /*установка времени задержки между отправкой значени¤ ¤чейки и измерением
