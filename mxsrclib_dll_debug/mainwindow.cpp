@@ -1,7 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "mxsrclib_dll_global.h"
 #include <measmul.h>
 #include <QDebug>
+
+
+MXSRCLIB_DLLEXPORT int connect_to_agilent_3458a(size_t a_meas_type, const wchar_t* a_name, int a_gpib_index,
+  int a_gpib_address, const wchar_t* a_com_name, const wchar_t* a_ip_str, const wchar_t *a_port_str);
+MXSRCLIB_DLLEXPORT int multimeter_set_config(const char* a_config_string,
+  double a_apply_delay_s);
+MXSRCLIB_DLLEXPORT int multimeter_start_measure(size_t a_meas_type, double *a_value);
+MXSRCLIB_DLLEXPORT int multimeter_get_status();
+MXSRCLIB_DLLEXPORT void multimeter_tick();
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -9,19 +19,16 @@ MainWindow::MainWindow(QWidget *parent)
   , ui(new Ui::MainWindow)
   , m_tick_timer()
   , m_value(0)
-  , m_agilent(L"Agilent USB-GPIB", 0, 22, L"com4", L"0.0.0.0", L"0")
   , m_type_meas(type_meas_t::tm_value)
   , m_dc_enabled(false)
   , m_meas_value()
+  , m_measure_started(false)
 {
   ui->setupUi(this);
 
-  m_agilent.enable(multimeter_mode_type_t::mul_mode_type_passive);
-  qDebug() << "agilent enabled: " << m_agilent.enabled();
-
-  if (m_agilent.enabled()) {
-    m_meas_value.set_connect_multimeter(m_agilent.mxmultimeter());
-  }
+  qDebug() << "Connect to Agilent...";
+  connect_to_agilent_3458a(tm_value, L"Agilent USB-GPIB", 0, 22, L"com3", L"0.0.0.0", L"0");
+  qDebug() << "Connected";
 
   connect(&m_tick_timer, &QTimer::timeout, this, &MainWindow::tick);
   m_tick_timer.start(100);
@@ -29,18 +36,31 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::tick()
 {
-  if (m_meas_value.is_multimeter_connected()) {
-    m_meas_value.tick();
+  multimeter_tick();
+  static meas_status_t status_prev = meas_status_error;
+  meas_status_t status = static_cast<meas_status_t>(multimeter_get_status());
+  if (status_prev != status) {
+    status_prev = status;
 
-    if (m_meas_value.get_status_meas() != meas_status_t::meas_status_busy) {
+    switch (status) {
+      case meas_status_success: {
+        ui->status_label->setText("Success");
 
-      std::ostringstream str;
-      str << std::fixed << std::setprecision(15) << m_value;
-      ui->measured_label->setText(str.str().c_str());
+        if (m_measure_started) {
+          m_measure_started = false;
 
-      qDebug() << "start new measure" << (int)m_type_meas;
-      m_meas_value.execute_meas(m_type_meas, &m_value);
+          std::ostringstream str;
+          str << std::fixed << std::setprecision(15) << m_value;
+          ui->measured_label->setText(str.str().c_str());
+        }
 
+      } break;
+      case meas_status_busy: {
+        ui->status_label->setText("Busy");
+      } break;
+      case meas_status_error: {
+        ui->status_label->setText("Error");
+      } break;
     }
   }
 }
@@ -50,80 +70,50 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-void MainWindow::on_dc_button_clicked()
-{
-  m_dc_enabled = true;
-  m_agilent.mxmultimeter()->set_dc();
-}
-
-void MainWindow::on_ac_button_clicked()
-{
-  m_dc_enabled = false;
-  m_agilent.mxmultimeter()->set_ac();
-}
-
-void MainWindow::on_current_button_clicked()
-{
-  if (m_dc_enabled) {
-    m_type_meas = type_meas_t::tm_current_dc;
-  } else {
-    m_type_meas = type_meas_t::tm_current_ac;
-  }
-  connect_to_multimeter(m_type_meas);
-  m_agilent.mxmultimeter()->get_current(&m_value);
-}
-
-void MainWindow::on_voiltage_button_clicked()
-{
-  if (m_dc_enabled) {
-    m_type_meas = type_meas_t::tm_volt_dc;
-  } else {
-    m_type_meas = type_meas_t::tm_volt_ac;
-  }
-  connect_to_multimeter(m_type_meas);
-  m_agilent.mxmultimeter()->get_voltage(&m_value);
-}
-
-void MainWindow::on_set_range_button_clicked()
-{
-  double range = ui->range_spinbox->value();
-  m_agilent.mxmultimeter()->set_range(m_type_meas, range);
-}
-
-void MainWindow::on_as_is_button_clicked()
-{
-  m_type_meas = type_meas_t::tm_value;
-  connect_to_multimeter(m_type_meas);
-  m_agilent.mxmultimeter()->get_value(&m_value);
-}
-
-bool MainWindow::connect_to_multimeter(type_meas_t a_meas_type)
-{
-  bool success = false;
-  if (a_meas_type >= tm_first && a_meas_type <= tm_last) {
-    multimeter_mode_type_t mode = a_meas_type == tm_value ? mul_mode_type_passive : mul_mode_type_active;
-    m_agilent.enable(mode);
-    if (m_agilent.enabled()) {
-      if (m_meas_value.set_connect_multimeter(m_agilent.mxmultimeter())) {
-        success = true;
-      }
-    }
-  }
-  return success;
-}
-
-
 void MainWindow::on_set_extra_commands_button_clicked()
 {
-//  send_commands = true;
   QString commands_str = ui->extra_commands_edit->text();
-  QStringList commands_list = commands_str.split(";");
-
-  vector<irs::string> commands;
-  commands.reserve(commands_list.size());
-
-  for (auto &cmd: commands_list) {
-    commands.push_back(cmd.toStdString());
+  if (!commands_str.isEmpty()) {
+    qDebug() << "Send" << commands_str;
+    multimeter_set_config(commands_str.toStdString().c_str(), 2);
   }
-//  m_meas_value.set_extra_commands(m_type_meas, commands);
+}
+
+void MainWindow::on_dcv_button_clicked()
+{
+  QString config = "DCV " + QString::number(ui->range_spinbox->value());
+  config.replace(",", ".");
+  qDebug() << "Send" << config;
+  multimeter_set_config(config.toStdString().c_str(), 2);
+}
+
+void MainWindow::on_dci_button_clicked()
+{
+  QString config = "DCI " + QString::number(ui->range_spinbox->value());
+  config.replace(",", ".");
+  qDebug() << "Send" << config;
+  multimeter_set_config(config.toStdString().c_str(), 2);
+}
+
+void MainWindow::on_acv_button_clicked()
+{
+  QString config = "ACV " + QString::number(ui->range_spinbox->value());
+  config.replace(",", ".");
+  qDebug() << "Send" << config;
+  multimeter_set_config(config.toStdString().c_str(), 2);
+}
+
+void MainWindow::on_aci_button_clicked()
+{
+  QString config = "ACI " + QString::number(ui->range_spinbox->value());
+  config.replace(",", ".");
+  qDebug() << "Send" << config;
+  multimeter_set_config(config.toStdString().c_str(), 2);
+}
+
+void MainWindow::on_make_measure_button_clicked()
+{
+  qDebug() << "Start measure";
+  multimeter_start_measure(tm_value, &m_value);
+  m_measure_started = true;
 }

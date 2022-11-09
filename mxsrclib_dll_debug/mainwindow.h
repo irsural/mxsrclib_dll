@@ -22,26 +22,23 @@ public:
 private slots:
   void tick();
 
-  void on_dc_button_clicked();
-  void on_ac_button_clicked();
-  void on_current_button_clicked();
-  void on_voiltage_button_clicked();
-  void on_set_range_button_clicked();
-
-  void on_as_is_button_clicked();
-
   void on_set_extra_commands_button_clicked();
+  void on_dcv_button_clicked();
+  void on_dci_button_clicked();
+  void on_acv_button_clicked();
+  void on_aci_button_clicked();
+  void on_make_measure_button_clicked();
 
 private:
   Ui::MainWindow *ui;
   QTimer m_tick_timer;
 
   double m_value;
-  agilent_3458a_mxmultimeter_t m_agilent;
 
   type_meas_t m_type_meas;
   bool m_dc_enabled;
   value_meas_t m_meas_value;
+  bool m_measure_started;
 
   bool connect_to_multimeter(type_meas_t a_meas_type);
 };

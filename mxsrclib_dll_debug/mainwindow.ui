@@ -39,6 +39,26 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Status</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="status_label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -46,16 +66,16 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QPushButton" name="dc_button">
+           <widget class="QPushButton" name="dcv_button">
             <property name="text">
-             <string>DC</string>
+             <string>DCV</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="ac_button">
+           <widget class="QPushButton" name="acv_button">
             <property name="text">
-             <string>AC</string>
+             <string>ACV</string>
             </property>
            </widget>
           </item>
@@ -64,39 +84,28 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QPushButton" name="current_button">
+           <widget class="QPushButton" name="dci_button">
             <property name="text">
-             <string>Current</string>
+             <string>DCI</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="voiltage_button">
+           <widget class="QPushButton" name="aci_button">
             <property name="text">
-             <string>Voltage</string>
+             <string>ACI</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="as_is_button">
-          <property name="text">
-           <string>As is</string>
+         <widget class="QDoubleSpinBox" name="range_spinbox">
+          <property name="decimals">
+           <number>8</number>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QDoubleSpinBox" name="range_spinbox"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="set_range_button">
-          <property name="text">
-           <string>Set range</string>
+          <property name="value">
+           <double>1.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -105,7 +114,11 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLineEdit" name="extra_commands_edit"/>
+         <widget class="QLineEdit" name="extra_commands_edit">
+          <property name="text">
+           <string>SETACV SYNC;NPLC 100</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="set_extra_commands_button">
@@ -117,6 +130,13 @@
        </layout>
       </item>
      </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="make_measure_button">
+      <property name="text">
+       <string>Make measure</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
