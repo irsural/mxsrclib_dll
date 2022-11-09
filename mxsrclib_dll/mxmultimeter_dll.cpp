@@ -88,7 +88,7 @@ std::istream& operator>>(std::istream& is, string_delimited_by<delimiter>& outpu
   return is;
 }
 
-MXSRCLIB_DLLEXPORT const char* multimeter_set_config(const char* a_config_string,
+MXSRCLIB_DLLEXPORT int multimeter_set_config(const char* a_config_string,
   double a_apply_delay_s)
 {
   if (m_meas_value.is_multimeter_connected()) {
@@ -97,7 +97,7 @@ MXSRCLIB_DLLEXPORT const char* multimeter_set_config(const char* a_config_string
       (std::istream_iterator<string_delimited_by<';'>>(input_stream)),
       std::istream_iterator<string_delimited_by<';'>>());
 
-    m_meas_value.set_extra_commands(std::move(commands), a_apply_delay_s);
+    return m_meas_value.send_commands(std::move(commands), a_apply_delay_s);
   }
-  return a_config_string;
+  return 0;
 }

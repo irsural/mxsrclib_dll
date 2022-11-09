@@ -183,15 +183,21 @@ void value_meas_t::process_meas()
   }
 }
 
-void value_meas_t::set_extra_commands(const vector<irs::string> a_commands,
+bool value_meas_t::send_commands(const vector<irs::string> a_commands,
   double a_apply_delay_s)
 {
-  if (m_on_connect_multimetr && (m_type_meas != tm_value)) {
+  if (m_on_connect_multimetr && m_meas_status == meas_status_success) {
     auto agilent = dynamic_cast<irs::agilent_3458a_t*>(m_multimeter);
     if (agilent) {
-      agilent->set_string_commands(a_commands, a_apply_delay_s);
+      agilent->send_commands(a_commands, a_apply_delay_s);
+      m_meas_status = m_multimeter->status();
+      // Измерения не произойдет, это просто обновит статус мультиметра
+      // и перейдет в OFF_PROCESS
+      m_status_process = MEAS;
+      return 1;
     }
   }
+  return 0;
 }
 
 void value_meas_t::tick()
